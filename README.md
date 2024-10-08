@@ -1,24 +1,75 @@
-# README
+# Deploying a Rails 7 + React app to AWS via Dokku (Base App)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+If you're cloning the app, just clone and [create a new master key](https://stackoverflow.com/a/59993704/17113811).
 
-Things you may want to cover:
+## Steps to setting up the app on your own, from scratch
 
-* Ruby version
+#### Prerequisites
 
-* System dependencies
+- ruby and a version manager (I use [asdf](https://github.com/asdf-vm/asdf))
+- [rails](https://edgeguides.rubyonrails.org/getting_started.html)
+- [nvm/node](https://github.com/nvm-sh/nvm)
+- [postgres](https://www.postgresql.org/download/)
 
-* Configuration
+#### Step-by-step setup
 
-* Database creation
+create new rails api project with postgres as db
 
-* Database initialization
+```bash
+rails new ror-react-dokku --api --database=postgresql && cd ror-react-dokku
+```
 
-* How to run the test suite
+Within `Gemfile`, uncomment `rack-cors` and `jbuilder`. add `faker`
 
-* Services (job queues, cache servers, search engines, etc.)
+install packages
 
-* Deployment instructions
+```bash
+bundle install
+```
 
-* ...
+uncomment cors and allow all origins (see `config/initializers/cors.rb`)
+
+> This isn't secure, so make sure you configure sources properly if you're following this guide for your production-ready app
+
+create migration for employees (see `db/migrate/20241008043155_create_employees.rb`)
+
+create model for employees (see `app/models/employee.rb`)
+
+write `db/seeds.rb`
+
+create database and seed
+
+```bash
+rails db:create
+rails db:migrate
+rails db:seed:replant --trace
+```
+
+write controllers
+
+- `app/controllers/arbitrary_controller.rb`
+- `app/controllers/employees_controller.rb`
+- `app/controllers/static_controller.rb`
+
+create routes for the above (see `config/routes.rb`)
+
+create frontend
+
+```bash
+npm create vite@latest frontend -- --template react-ts
+cd frontend && npm install
+npm install axios
+
+# remove unnecessary files
+cd src && rm -rf assets/ App.css index.css && cd ..
+```
+
+change frontend App content (see `frontend/src/App.tsx`)
+
+remove `index.css` import from `frontend/src/main.tsx`
+
+change `frontend/package.json` script for `build` and `frontend/vite.config.ts`
+
+delete `public/` from rails folder and add it to `.gitignore`
+
+create `app.json` and `package.json` (in rails folder) for dokku
