@@ -1,0 +1,9 @@
+{
+  "name": "buildpack-deploy-file",
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "build": "mkdir public && cd frontend && yarn install && yarn build"
+  }
+}
