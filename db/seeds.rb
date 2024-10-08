@@ -1,9 +1,14 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+# Traditionally, rails recommends that you use the seeds.rb file to create records that are necessary for the
+# application. Instead, we use the seeding file to enable rapid testing via populating a test database with sample
+# data. When creating a model, make sure to add seeding here for it.
 #
-# Example:
+# To populate the database, run the command below. Note that this
+# truncates the database first before seeding
 #
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# $ bin/rails db:seed:replant --trace
+
+require "faker"
+
+10.times do
+  Employee.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
+end
