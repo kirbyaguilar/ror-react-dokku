@@ -72,6 +72,8 @@ remove `index.css` import from `frontend/src/main.tsx`
 
 change `frontend/package.json` script for `build` and `frontend/vite.config.ts`
 
+create `frontend/.nvmrc` and `frontend/.npmrc`
+
 delete `public/` from rails folder and add it to `.gitignore`
 
 create `app.json` and `package.json` (in rails folder) for dokku
