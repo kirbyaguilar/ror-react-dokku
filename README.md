@@ -2,6 +2,16 @@
 
 If you're cloning the app, just clone and [create a new master key](https://stackoverflow.com/a/59993704/17113811).
 
+Afterwards, run:
+
+```bash
+bundle install
+rails db:create
+rails db:migrate
+rails db:seed:replant --trace
+cd frontend && npm install
+```
+
 ## Steps to setting up the app on your own, from scratch
 
 #### Prerequisites
