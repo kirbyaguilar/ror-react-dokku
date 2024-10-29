@@ -43,6 +43,8 @@ set `config.force_ssl = false` in `config/environments/production.rb`
 
 > These above two steps aren't secure, so make sure you configure them properly if you're following this guide for your production-ready app
 
+set environment vars in `database.yml`
+
 create migration for employees (see `db/migrate/20241008043155_create_employees.rb`)
 
 create model for employees (see `app/models/employee.rb`)
